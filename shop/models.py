@@ -37,7 +37,7 @@ class Product(models.Model):
     available_order = models.BooleanField('Order', default=True)
 
     created = models.DateTimeField(auto_now_add=True)
-    updated = model.models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta: # Model 안의 Meta에는 검색옵션, 디스플레이된 이름 등의 정보가 들어갑니다.
         ordering = ['-created', '-updated']
