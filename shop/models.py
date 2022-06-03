@@ -32,7 +32,7 @@ class Product(models.Model):
     meta_description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     # decimal_places = 소숫점 몇째짜리까지 출력할지 설정
-    stock = models.PositiveBigIntegerField()
+    stock = models.PositiveBigIntegerField(default=0, blank=True)
     available_display = models.BooleanField('Display', default=True)
     available_order = models.BooleanField('Order', default=True)
 
