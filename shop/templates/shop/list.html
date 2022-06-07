@@ -23,7 +23,7 @@
 
                 <div class="col-4">
                     <div class="card">
-                      <img class="card-img-top" src="{{product.image.url}}" alt="Product Image">
+                      {% if product.image %}<img class="card-img-top" src="{{product.image.url}}" alt="Product Image"> {% endif %}
                       <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}} <span class="badge badge-secondary">${{product.price}}</span></p>

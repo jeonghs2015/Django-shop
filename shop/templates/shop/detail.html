@@ -6,7 +6,7 @@
 {% block content %}
     <div class="row">
         <div class="col-4">
-            <img src="{{product.image.url}}" width="100%">
+            {% if product.image %}<img src="{{product.image.url}}" width="100%">{% endif %}
         </div>
         <div class="col">
             <h1 class="display-6">{{product.name}}</h1>
