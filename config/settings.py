@@ -91,6 +91,9 @@ DATABASES = {
         'USER' : 'gnupy',
         'PASSWORD' : 'dptmdkdldkf1!',
         'PORT' : '5432',
+        'options' : {
+            'CONN_MAX_AGE' : '60',
+        }
     }
 }
 
@@ -163,4 +166,7 @@ AWS_LOCATION = ''
 
 STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
+
 # AWS S3 사용할 시 추가해주어야하는 부분
