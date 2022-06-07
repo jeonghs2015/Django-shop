@@ -143,3 +143,24 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
+
+
+# AWS S3 사용할 시 추가해주어야하는 부분
+AWS_ACCESS_KEY_ID = 'AKIAQOTJE4FTCKJWK65I'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'gnupy-static'
+AWS_S3_CUSTOM_DOMAIN = f's3.{AWS_REGION}.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl':'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = ''
+
+STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS S3 사용할 시 추가해주어야하는 부분
