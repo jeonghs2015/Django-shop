@@ -5,7 +5,7 @@ from requests import request
 from shop.models import Product
 
 class Cart(object):
-    def __init__(self):     #초기화 작업
+    def __init__(self, request):     #초기화 작업
         self.session = request.session
         cart = self.session.get(settings.CART_ID)
         if not cart:
