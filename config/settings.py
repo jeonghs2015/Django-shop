@@ -172,3 +172,6 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
 
 # AWS S3 사용할 시 추가해주어야하는 부분
+
+
+CART_ID = 'card_item'
