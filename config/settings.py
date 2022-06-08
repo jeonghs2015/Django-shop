@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.naver',
+    'cart',
 
 ]
 
@@ -92,8 +93,8 @@ DATABASES = {
         'PASSWORD' : 'dptmdkdldkf1!',
         'PORT' : '5432',
         'options' : {
-            'CONN_MAX_AGE' : '60',
-        }
+            'idle_in_transaction_session_timeout' : '0',
+        },
     }
 }
 
@@ -134,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 # 로그인 과정 처리
 AUTHENTICATION_BACKENDS = [
@@ -164,9 +165,10 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION = ''
 
+
 STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
+DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
 
 # AWS S3 사용할 시 추가해주어야하는 부분
