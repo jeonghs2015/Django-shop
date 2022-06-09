@@ -51,7 +51,11 @@
     <p>
         Add Coupon:
     </p>
-    
+    <form action="{% url 'coupon:add' %}" method="post">
+        {% csrf_token %}
+        {{add_coupon}}
+        <input type="submit" value="Add">
+    </form>
 
 
     <p class="text-right">
