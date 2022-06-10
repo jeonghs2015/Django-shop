@@ -24,4 +24,17 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['-created']
-        
+    
+    # __str__ 메소드 : 관리자 페이지 or delete 페이지에서 객체 정보를 009화면에 출력했을때 어떤 내용을 보여줄지 정하는 메소드
+    #                  Django 문법이 아니고 python 기본 문법
+    def __str__(self):
+        return f'Order {self.id}'
+    
+
+    def get_total_product(self):
+        return sum(item.get_item_price() for item in self.items.all())
+
+
+    def get_total_price(self):
+        total_product = self.get_total_product()
+        return total_product - self.discount
