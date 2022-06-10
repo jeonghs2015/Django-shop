@@ -1,3 +1,4 @@
+from os import access
 import requests
 from django.conf import settings
 
@@ -18,9 +19,26 @@ def get_token():
     else:
         return None
 
+
 # 어떤 order_id로 얼마의 금액으로 결제를 요청할 건지 IAMport에 등록해주는 함수.
 def payments_prepare(order_id, amount, *args, **kwargs):
-    pass
+    access_token = get_token()
+    if access_token:
+        access_data = {
+            'merchant_uid':order_id,
+            'amount':amount
+        }
+        url = "https://api.iamport.kr/payments/prepare"
+        headers = {
+            'Authorization':access_token
+        }
+        req = requests.post(url, data=access_data, headers=headers)
+        # json 데이터로 파싱
+        res = req.json()
+        if res['code'] != 0:
+            raise ValueError("API 통신 오류")
+    else:
+        raise ValueError("토큰 오류")
 
 
 # 결제가 이뤄지면 iamport 에 기록이 남고 django app으로 결제 완료된 정보를 전송해준다.
