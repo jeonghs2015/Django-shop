@@ -3,8 +3,11 @@ import email
 from operator import truediv
 from ssl import create_default_context
 from types import CoroutineType
+from unicodedata import decimal
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+from shop.models import Product
 from coupon.models import Coupon
 
 # Create your models here.
@@ -38,3 +41,17 @@ class Order(models.Model):
     def get_total_price(self):
         total_product = self.get_total_product()
         return total_product - self.discount
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='order_products')
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveBigIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
+
+
+    def get_tiem_price(self):
+        return self.price * self.quantity
