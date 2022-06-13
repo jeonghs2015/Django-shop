@@ -44,7 +44,7 @@ def payments_prepare(order_id, amount, *args, **kwargs):
 # 결제가 이뤄지면 iamport 에 기록이 남고 django app으로 결제 완료된 정보를 전송해준다.
 # 주의할 점은 실제 결제 완료된 금액과 django app에서 결제된 금액이 맞는지 확인해야함.
 # 그 과정을 진행하는 함수
-def find_transaction(order_id, *args, **kwargs)
+def find_transaction(order_id, *args, **kwargs):
     access_token = get_token()
     if access_token:
         url = "https://api.iamport.kr/payments/find/"+order_id
