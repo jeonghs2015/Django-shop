@@ -38,6 +38,7 @@ from django.http import JsonResponse
 # 카트에서 제품 정보를 가져와 order 객체를 생성해주는 클래스
 class OrderCreateAjaxView(View):
     def post(self, request, *args, **kwargs):
+        # 로그인 하지 않은 회원은 403
         if not request.user.is_authenticated:
             return JsonResponse({"authenticated":False}, status=403)
 
@@ -62,11 +63,14 @@ class OrderCreateAjaxView(View):
 # 각 단계를 나눠서 처리하기위해 transaction을 나눠주기 위한 클래스
 class OrderCheckoutAjaxView(View):
     def post(self, request, *args, **kwargs):
+        # 로그인 하지 않은 회원은 403
         if not request.user.is_authenticated:
             return JsonResponse({"authenticated":False}, status=403)
 
-        order_id = request.POST.get(id=order_id)
+        # order_id를 받아서 order 객체 만드는 부분
+        order_id = request.POST.get('order_id')
         order = Order.objects.get(id=order_id)
+
         amount = request.POST.get('amount')
 
         try:
@@ -83,6 +87,44 @@ class OrderCheckoutAjaxView(View):
                 "works":True,
                 "merchant_id":merchant_order_id
             }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({}, status=401)
+
+# 후처리 클래스
+# 제대로 된 order가 있는지 결제금액이 제대로 되어있는지 확인
+class OrderImpAjaxView(View):
+    def post(self, request, *args, **kwargs):
+        # 로그인 하지 않은 회원은 403
+        if not request.user.is_authenticated:
+            return JsonResponse({"authenticated": False}, status=403)
+        
+        # order_id를 받아서 order 객체 만드는 부분
+        order_id = request.POST.get('order_id')
+        order = Order.objects.get(id=order_id)
+
+        merchant_id = request.POST.get('merchant_id')
+        imp_id = request.POST.get('imp_id')
+        amount = request.POST.get('amount')
+
+        try:
+            trans = OrderTransaction.objects.get(
+                order=order,
+                merchant_order_id=merchant_id,
+                amount=amount
+            )
+        except:
+            trans = None
+        
+        if trans is not None:
+            trans.transaction_id = imp_id
+            trans.save()
+            order.paid = True
+            order.save()
+
+            data = {
+                "works":True
+            }            
             return JsonResponse(data)
         else:
             return JsonResponse({}, status=401)
