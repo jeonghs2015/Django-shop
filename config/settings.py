@@ -182,3 +182,8 @@ CART_ID = 'card_item'
 
 IAMPORT_KEY = '1788511560492663'
 IAMPORT_SECRET = '240ef6f14bbf583161297b99e05562baaee9b60c7b5a2f1bea159d67a252016915ad5310cad22ef3'
+
+# S3 클라우드 경로 연결
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
