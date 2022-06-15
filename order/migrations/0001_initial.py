@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(max_length=20)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('paid', models.BooleanField(default=False)),
+                ('paid', models.BooleanField(blank=True, default=False, null=True)),
                 ('discount', models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(100000)])),
                 ('coupon', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='order_coupon', to='coupon.coupon')),
             ],
