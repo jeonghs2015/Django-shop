@@ -35,3 +35,32 @@ $(function(){
         return false;
     });
 });
+
+// e : javascript event
+// Order 내용을 생성해주는 함수
+function AjaxCreateOrder(e) {
+    // form이 submit 되는 현상을 막아줌
+    e.preventDefault();
+    var order_id = '';
+    var request = $.ajax({
+        method:'POST',
+        url:order_create_url,
+        async:false,         // 결제 과정이 꼬이지 않게 동기 과정으로 진행
+        data:$('.order-form').serialize()
+    });
+    request.done(function(data){
+        if(data.order_id) {
+            order_id = data.order_id;
+        }
+    });
+    request.fail(function(jqXHR, textStatus) {
+        if(jqXHR.status == 404) {
+            alert("페이지가 존재하지 않습니다.");
+        }else if(jqXHR.status == 403) {
+            alert("로그인해주세요");
+        }else {
+            alert("문제가 발생했습니다.\n다시 시도해주세요.");
+        }
+    });
+    return order_id;
+}
