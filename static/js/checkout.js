@@ -64,3 +64,33 @@ function AjaxCreateOrder(e) {
     });
     return order_id;
 }
+
+function AjaxStoreTransaction(e, order_id, amount, type) {
+    e.preventDefault();
+    var merchant_id = '';
+    var request = $.ajax({
+        method:'POST',
+        url:order_checkout_url,
+        async:false,
+        data:{
+            order_id:order_id,
+            amount:amount,
+            type:type,
+            csrfmiddlewaretoken:csrf_token,
+        }
+    });
+    request.done(function(data) {
+        if(data.works) {
+            merchant_id = data.merchant_id;
+        }
+    });
+    request.fail(function(jqXHR, textStatus) {
+        if(jqXHR.status == 404) {
+            alert("페이지가 존재하지 않습니다.");
+        }else if(jqXHR.status == 403) {
+            alert("로그인해주세요");
+        }else {
+            alert("문제가 발생했습니다.\n다시 시도해주세요.");
+        }
+    });
+}
