@@ -67,4 +67,4 @@ def find_transaction(order_id, *args, **kwargs):
             return None
 
     else:
-        raise ValueError("토큰 오류")
+        raise ValueError("토큰 오류 발생")
