@@ -129,7 +129,7 @@ function ImpTransaction(e, order_id,merchant_id, imp_id, amount) {
             alert("로그인 해주세요.");
         } else {
             console.log(jqXHR);
-            alert("문제가 발생했습니다. 다시 시도해주세요.");
+            alert("문제가 발생했습니다. 다시 시도해주세요.\n(ImpTransaction)");
         }
     });
 }
