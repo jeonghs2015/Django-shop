@@ -27,8 +27,8 @@ $(function () {
                     var msg = '결제가 완료되었습니다.';
                     msg += '고유ID : ' + rsp.imp_uid;
                     msg += '상점 거래ID : ' + rsp.merchant_uid;
-                    msg += '결제 금액 : ' + rsp.paid_amount;
-                    msg += '카드 승인번호 : ' + rsp.apply_num;
+                    msg += '결제 금액. : ' + rsp.paid_amount;
+                    msg += '카드 승인번호. : ' + rsp.apply_num;
                     // 결제가 완료되었으면 비교해서 디비에 반영
                     ImpTransaction(e, order_id, rsp.merchant_uid, rsp.imp_uid, rsp.paid_amount);
                 } else {
