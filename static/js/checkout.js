@@ -126,7 +126,7 @@ function ImpTransaction(e, order_id,merchant_id, imp_id, amount) {
         if (jqXHR.status == 404) {
             alert("페이지가 존재하지 않습니다.");
         } else if (jqXHR.status == 403) {
-            alert("로그인 해주세요.");
+            alert("로그인이 필요한 작업입니다. 로그인 해주세요.");
         } else {
             console.log(jqXHR);
             alert("문제가 발생했습니다. 다시 시도해주세요.\n(ImpTransaction)");
