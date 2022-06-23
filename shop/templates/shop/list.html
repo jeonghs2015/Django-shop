@@ -16,7 +16,7 @@
 
         <div class="col">
             <div class="alert alert-info" role="alert">
-              {% if current_category %}{{current_category.name}}{% else %}All Products{% endif %}
+              {% if current_category %}{{current_category.name}}{% else %}-All Products-{% endif %}
             </div>
             <div class="row">
             {% for product in products %}
